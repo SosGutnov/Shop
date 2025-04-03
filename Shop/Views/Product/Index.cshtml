@@ -1,0 +1,32 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<body style="background-color: azure">
+  <div class="grid-3">
+
+        <div class="grid-item">
+                <img src=@Model.ImagePath class="img-product" alt="...">
+        </div>
+        <div class="grid-item">
+            <div class="">
+                <h5 class="card-title name-product">@Model.Name</h5>
+                <p class="card-text product-cost">Цена @Model.Cost ₽</p>
+            </div>
+            <div class="product-description">
+                <p class="card-text">@Model.Description</p>
+            </div>
+            <div class="size-product">
+                ...
+            </div>
+            <div class="product-to-basket">
+                <a href="/cart/add?productId=@Model.Id">
+                    <h5 class="card-title name-product">В корзину</h5>
+                </a>
+            </div>
+        </div>
+
+  </div>
+</body>
