@@ -1,6 +1,4 @@
-﻿using Shop.Models;
-
-namespace Shop
+﻿namespace Shop.Models
 {
     public class CartItem
     {
@@ -15,7 +13,9 @@ namespace Shop
             Amount = amount;
         }
 
-        public decimal Cost { get
+        public decimal Cost
+        {
+            get
             {
                 return Product.Cost * Amount;
             }

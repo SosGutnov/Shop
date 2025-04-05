@@ -21,10 +21,17 @@ namespace Shop.Controllers
         }
 
         [HttpPost]
-        public ActionResult Buy(Order order)
+        public ActionResult Buy(UserDeliveryInfo user)
         {
             var existingsCart = cartsRepository.TryGetById(Constants.UserId);
-            ordersRepository.Add(existingsCart);
+
+            var order = new Order
+            {
+                User = user,
+                Items = existingsCart.Items
+            };
+            ordersRepository.Add(order);
+
             cartsRepository.Clear(Constants.UserId);
             return View();
         }

@@ -1,7 +1,9 @@
-﻿namespace Shop
+﻿using Shop.Models;
+
+namespace Shop
 {
     public interface IOrdersRepository
     {
-        void Add(Cart order);
+        void Add(Order order);
     }
 }

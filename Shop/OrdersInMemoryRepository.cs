@@ -4,9 +4,9 @@ namespace Shop
 {
     public class OrdersInMemoryRepository : IOrdersRepository
     {
-        private List<Cart> orders = new List<Cart>();
+        private List<Order> orders = new List<Order>();
 
-        public void Add(Cart order)
+        public void Add(Order order)
         {
             orders.Add(order);
         }
