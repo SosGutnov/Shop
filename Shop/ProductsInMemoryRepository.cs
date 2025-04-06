@@ -1,4 +1,5 @@
-﻿using Shop.Models;
+﻿using AspNetCoreGeneratedDocument;
+using Shop.Models;
 
 namespace Shop
 {
@@ -17,10 +18,19 @@ namespace Shop
         {
             return products;
         }
+        public void AddProduct(Product product)
+        {
+            products.Add(product);
+        }
 
         public Product TryGetByid(int id)
         {
             return products.FirstOrDefault(product => product.Id == id);
+        }
+
+        public void AddProduct()
+        {
+            throw new NotImplementedException();
         }
     }
 }

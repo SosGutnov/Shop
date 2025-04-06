@@ -1,12 +1,4 @@
 ﻿<div class="row">
-    <div class="col-6">
-        <a class="btn btn-secondary " asp-controller="Admin" asp-action="Orders">Заказы</a>
-        <br />
-        <a class="btn btn-secondary " asp-controller="Admin" asp-action="Users">Пользователи</a>
-        <br />
-        <a class="btn btn-secondary " asp-controller="Admin" asp-action="Roles">Роли</a>
-        <br />
-        <a class="btn btn-secondary " asp-controller="Admin" asp-action="Products">Товары</a>
-    </div>
+    @await Html.PartialAsync("AdminLeftPanel")
     <div class="col-6">Список заказов</div>
 </div>

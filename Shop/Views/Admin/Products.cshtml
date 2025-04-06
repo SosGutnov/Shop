@@ -1,14 +1,25 @@
-﻿<div class="row">
-    <div class="col-6">
-        <a class="btn btn-secondary " asp-controller="Admin" asp-action="Orders">Заказы</a>
-        <br />
-        <a class="btn btn-secondary " asp-controller="Admin" asp-action="Users">Пользователи</a>
-        <br />
-        <a class="btn btn-secondary " asp-controller="Admin" asp-action="Roles">Роли</a>
-        <br />
-        <a class="btn btn-secondary " asp-controller="Admin" asp-action="Products">Товары</a>
-    </div>
-    <div class="col-6">
-        Список продуктов
+﻿@model List<Product>
+<div class="row">
+    @await Html.PartialAsync("AdminLeftPanel")
+    <div class="col-9">
+        <h1>Список товаров</h1>
+        <a asp-controller="Admin" asp-action="AddProduct">Добавить товар</a>
+        <table class="table">
+            <tr>
+                <td>№</td>
+                <td>Название</td>
+                <td>Цена</td>
+            </tr>
+            @foreach(var product in Model) {
+                <tr>
+                    <td>@product.Id</td>
+                    <td>@product.Name</td>
+                    <td>@product.Cost</td>
+                    <td><a href="">Редактировать</a></td>
+                    <td><a href="">Удалить</a></td>
+                </tr>
+            }
+            
+        </table>
     </div>
 </div>
