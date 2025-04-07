@@ -22,6 +22,10 @@ namespace Shop
         {
             products.Add(product);
         }
+        public void DeleteProduct(int id)
+        {
+            products.Remove(TryGetByid(id));
+        }
 
         public Product TryGetByid(int id)
         {

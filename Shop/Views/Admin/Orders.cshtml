@@ -1,4 +1,33 @@
-﻿<div class="row">
+﻿@model List<Order>
+<div class="row">
     @await Html.PartialAsync("AdminLeftPanel")
-    <div class="col-6">Список заказов</div>
+    <div class="col-9">
+        <h1>Список заказов</h1>
+        <table class="table">
+            <tr>
+                <td>Заказ №</td>
+                <td>На имя</td>
+                <td>Телефон</td>
+                <td>Адрес</td>
+                <td>Товары</td>
+            </tr>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.User.name</td>
+                    <td>@order.User.phone</td>
+                    <td>@order.User.addres</td>
+                    <td>
+                        @foreach(var product in order.Items){
+                            <a>@product.Product.Name</a>
+                            <br />
+                        }
+                        
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
 </div>

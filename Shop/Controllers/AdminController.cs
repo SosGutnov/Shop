@@ -5,16 +5,19 @@ namespace Shop.Controllers
 {
     public class AdminController : Controller
     {
-        private readonly IProductsRepository productsRepository;
+        private IProductsRepository productsRepository;
+        private IOrdersRepository ordersRepository;
 
-        public AdminController(IProductsRepository productsRepository)
+        public AdminController(IProductsRepository productsRepository, IOrdersRepository ordersRepository)
         {
             this.productsRepository = productsRepository;
+            this.ordersRepository = ordersRepository;
         }
 
         public IActionResult Orders()
         {
-            return View();
+            var orders = ordersRepository.GetAll();
+            return View(orders);
         }
         public IActionResult Products()
         {
@@ -33,6 +36,12 @@ namespace Shop.Controllers
         {
             var product = new Product("Футболка", 4100, "asf", "/images/jinx.png");
             productsRepository.AddProduct(product);
+            return View("Products", productsRepository.GetAll());
+        }
+
+        public IActionResult DeleteProduct(int id)
+        {
+            productsRepository.DeleteProduct(id);
             return View("Products", productsRepository.GetAll());
         }
     }

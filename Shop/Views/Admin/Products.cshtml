@@ -3,7 +3,7 @@
     @await Html.PartialAsync("AdminLeftPanel")
     <div class="col-9">
         <h1>Список товаров</h1>
-        <a asp-controller="Admin" asp-action="AddProduct">Добавить товар</a>
+        <a asp-controller="Admin" asp-action="AddProduct">Добавить новый товар</a>
         <table class="table">
             <tr>
                 <td>№</td>
@@ -16,7 +16,7 @@
                     <td>@product.Name</td>
                     <td>@product.Cost</td>
                     <td><a href="">Редактировать</a></td>
-                    <td><a href="">Удалить</a></td>
+                    <td><a href="/admin/deleteProduct/@product.Id">Удалить</a></td>
                 </tr>
             }
             

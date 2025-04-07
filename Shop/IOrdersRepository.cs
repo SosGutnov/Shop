@@ -5,5 +5,6 @@ namespace Shop
     public interface IOrdersRepository
     {
         void Add(Order order);
+        List<Order> GetAll();
     }
 }

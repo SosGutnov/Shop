@@ -28,7 +28,8 @@ namespace Shop.Controllers
             var order = new Order
             {
                 User = user,
-                Items = existingsCart.Items
+                Items = existingsCart.Items,
+                IsCompleted = false
             };
             ordersRepository.Add(order);
 
