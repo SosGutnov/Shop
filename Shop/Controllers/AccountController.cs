@@ -15,7 +15,11 @@ namespace Shop.Controllers
         [HttpPost]
         public ActionResult Login(Models.Login login)
         {
-            return RedirectToAction("Index", "Home");
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return Content("че то не так");
         }
         
         public ActionResult Register()

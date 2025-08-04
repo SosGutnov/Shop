@@ -1,5 +1,6 @@
 ﻿using AspNetCoreGeneratedDocument;
 using Shop.Models;
+using System.Data;
 
 namespace Shop
 {
@@ -35,6 +36,19 @@ namespace Shop
         public void AddProduct()
         {
             throw new NotImplementedException();
+        }
+
+        public void Update(Product product)
+        {
+            var existingProduct = products.FirstOrDefault(x=> x.Id==product.Id);
+            if (existingProduct == null)
+            {
+                return;
+            }
+            existingProduct.Name = product.Name;
+            existingProduct.Description = product.Description;
+            existingProduct.Cost = product.Cost;
+
         }
     }
 }

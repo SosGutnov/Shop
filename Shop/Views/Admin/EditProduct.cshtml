@@ -1,28 +1,28 @@
 ﻿@model Product
 <div class="form_auth_block">
     <div class="form_auth_block_content">
-        <p class="form_auth_block_head_text">Добавление продукта</p>
+        <p class="form_auth_block_head_text">Изменение продукта</p>
         <form class="form_auth_style" action="#" method="post">
 
             <div>
                 <label asp-for="Name">Название</label>
-                <input class="input_auth" type="text" asp-for="Name" placeholder="Введите название товара" />
+                <input class="input_auth" type="text" asp-for="Name" value="@Model.Name" />
                 <span asp-validation-for="Name"></span>
             </div>
 
             <div>
                 <label asp-for="Description">Описание</label>
-                <input class="input_auth" type="text" asp-for="Description" placeholder="Введите описание" />
+                <input class="input_auth" type="text" asp-for="Description" value="@Model.Description" />
                 <span asp-validation-for="Description"></span>
             </div>
 
             <div>
                 <label asp-for="Cost">Цена</label>
-                <input class="input_auth" type="number" asp-for="Cost" placeholder="Введите цену" />
+                <input class="input_auth" type="number" asp-for="Cost" value="@Model.Cost" />
                 <span asp-validation-for="Cost"></span>
             </div>
 
-            <button class="btn btn-secondary form_auth_button" type="submit" name="form_auth_submit" asp-controller="Admin" asp-action="AddProduct">Добавить товар</button>
+            <button class="btn btn-secondary form_auth_button" type="submit" name="form_auth_submit" asp-controller="Admin" asp-action="EditProduct">Изменить товар</button>
         </form>
     </div>
 </div>

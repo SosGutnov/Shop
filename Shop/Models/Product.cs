@@ -1,4 +1,5 @@
-﻿using static System.Net.Mime.MediaTypeNames;
+﻿using System.ComponentModel.DataAnnotations;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Shop.Models
 {
@@ -8,24 +9,33 @@ namespace Shop.Models
 
         public int Id { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
+        [Required]
         public decimal Cost { get; set; }
 
+        [Required]
         public string Description { get; set; }
 
         public string ImagePath { get; set; }
 
         public string InFollow { get; set; }
 
-        public Product(string name, decimal cost, string description, string imagepath)
+        public Product()
         {
+            InFollow = "";
             Id = _id;
+            _id += 1;
+        }
+        public Product(string name, decimal cost, string description, string imagepath):this()
+        {
+            
             Name = name;
             Cost = cost;
             Description = description;
             ImagePath = imagepath;
-            _id += 1;
+            
             InFollow = "none";
         }
 

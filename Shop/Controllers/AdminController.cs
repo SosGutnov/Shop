@@ -34,15 +34,41 @@ namespace Shop.Controllers
         }
         public IActionResult AddProduct()
         {
-            var product = new Product("Футболка", 4100, "asf", "/images/jinx.png");
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddProduct(Product product)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(product);
+            }
+            product.ImagePath = "/images/jinx.png";
             productsRepository.AddProduct(product);
-            return View("Products", productsRepository.GetAll());
+            return RedirectToAction("Products");
         }
 
         public IActionResult DeleteProduct(int id)
         {
             productsRepository.DeleteProduct(id);
-            return View("Products", productsRepository.GetAll());
+            return RedirectToAction("Products");
+        }
+
+        public IActionResult EditProduct(int id)
+        {
+            return View(productsRepository.TryGetByid(id));
+        }
+
+        [HttpPost]
+        public IActionResult EditProduct(Product product)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(product);
+            }
+            productsRepository.Update(product);
+            return RedirectToAction("Products");
         }
     }
 }
