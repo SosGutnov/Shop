@@ -30,6 +30,7 @@ namespace Shop
                 builder.Services.AddSingleton<IProductsRepository, ProductsInMemoryRepository>();
                 builder.Services.AddSingleton<IFavoriteProductsRepository, FavoriteProductsInMemoryRepository>();
                 builder.Services.AddSingleton<IRolesRepository, RolesInMemoryRepository>();
+                builder.Services.AddSingleton<IUserManager, UserManager>();
                 builder.Services.AddControllersWithViews();
 
 
@@ -56,7 +57,7 @@ namespace Shop
                 app.UseAuthorization();
 
                 app.MapControllerRoute(
-                    name: "MyArea",
+                    name: "MyArea", 
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
                 app.MapControllerRoute(

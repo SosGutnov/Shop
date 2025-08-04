@@ -1,5 +1,4 @@
-﻿@using Shop.Areas.Admin.Models
-@model Login
+﻿@model Login
 <div class="form_auth_block">
     <div class="form_auth_block_content">
         <p class="form_auth_block_head_text">Авторизация</p>
@@ -16,9 +15,11 @@
                 <span asp-validation-for="Password"></span>
             </div>
             
-            
+            <div asp-validation-summary="All"></div>
+            <br />
             <button class="btn btn-secondary form_auth_button" type="submit" name="form_auth_submit" asp-controller="Account" asp-action="Login">Войти</button>
             <a class="btn btn-secondary form_auth_button" asp-controller="Account" asp-action="Register">Регистрация</a>
+            
         </form>
         
     </div>

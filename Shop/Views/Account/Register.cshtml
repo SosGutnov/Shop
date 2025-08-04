@@ -1,5 +1,4 @@
-﻿@using Shop.Areas.Admin.Models
-@model Register
+﻿@model Register
 
 <div class="form_auth_block">
     <div class="form_auth_block_content">
@@ -23,8 +22,10 @@
                 <input class="input_auth" type="password" asp-for="ConfirmPassword" placeholder="Повторите пароль" />
                 <span asp-validation-for="ConfirmPassword"></span>
             </div>
-
+            <div asp-validation-summary="All"></div>
+            <br />
             <button class="btn btn-secondary form_auth_button" type="submit" name="form_auth_submit" asp-controller="Account" asp-action="Register">Зарегистрироваться</button>
+            
         </form>
     </div>
 </div>

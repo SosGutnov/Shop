@@ -1,35 +1,69 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
+﻿using Microsoft.AspNetCore.Mvc;
+using Shop.Models;
 
 namespace Shop.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly IUserManager userManager;
+
+        public AccountController(IUserManager userManager)
+        {
+            this.userManager = userManager;
+        }
+
         public ActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Login(Models.Login login)
+        public ActionResult Login(Login login)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+                return View();
+            var user = userManager.TryGetByName(login.UserName);
+            if (user == null)
             {
-                return RedirectToAction("Index", "Home");
+                ModelState.AddModelError("", "Пользователя с таким логином не существует");
+                return View();
             }
-            return Content("че то не так");
+            if (user.Password != login.Password)
+            {
+                ModelState.AddModelError("", "Неправильный пароль");
+                return View();
+            }
+            return RedirectToAction(nameof(Index), "Home");
         }
-        
+
         public ActionResult Register()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Register(Models.Register register)
+        public ActionResult Register(Register register)
         {
-            return RedirectToAction("Index", "Home");
+            if (ModelState.IsValid)
+            {
+                var user = userManager.TryGetByName(register.UserName);
+                if (user == null)
+                {
+                    userManager.Add(new UserAccount
+                    {
+                        Name = register.UserName,
+                        Password = register.Password
+                    });
+                    return RedirectToAction(nameof(HomeController.Index), "Home");
+                }
+                if (user != null)
+                {
+                    ModelState.AddModelError("", "Логин занят");
+                    return View();
+                }
+            }
+
+            return View();
         }
     }
 }
