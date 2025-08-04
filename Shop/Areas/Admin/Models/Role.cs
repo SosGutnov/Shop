@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Shop.Models
+namespace Shop.Areas.Admin.Models
 {
     public class Role
     {

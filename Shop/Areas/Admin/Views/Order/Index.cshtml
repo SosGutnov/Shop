@@ -22,7 +22,11 @@
                     <td>@order.User.Name</td>
                     <td>@order.CreatedDateTime.ToString("d")</td>
                     <td>@order.CreatedDateTime.ToString("t")</td>
-                    <td><a href="/admin/orderDetails?orderId=@order.Id">подробнее</a></td>
+                    <td><a 
+                        asp-area="admin"
+                        asp-controller="order"
+                        asp-action="detail"
+                        asp-route-id="@order.Id">подробнее</a></td>
                 </tr>
             }
 

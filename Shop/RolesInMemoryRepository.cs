@@ -1,4 +1,4 @@
-﻿using Shop.Models;
+﻿using Shop.Areas.Admin.Models;
 
 namespace Shop
 {
@@ -21,7 +21,7 @@ namespace Shop
             return roles.FirstOrDefault(x => x.Name == name);
         }
 
-        public void RemoveRole(string name)
+        public void Remove(string name)
         {
             roles.RemoveAll(x => x.Name == name);
         }

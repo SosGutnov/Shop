@@ -18,12 +18,14 @@ namespace Shop.Models
         [Required]
         public string Description { get; set; }
 
+        
         public string ImagePath { get; set; }
 
         public string InFollow { get; set; }
 
         public Product()
         {
+            ImagePath = "/images/jinx.png";
             InFollow = "";
             Id = _id;
             _id += 1;

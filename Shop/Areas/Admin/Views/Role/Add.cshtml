@@ -10,7 +10,7 @@
                 <span asp-validation-for="Name"></span>
             </div>
 
-            <button class="btn btn-secondary form_auth_button" type="submit" name="form_auth_submit" asp-controller="Admin" asp-action="AddRole">Создать роль</button>
+            <button class="btn btn-secondary form_auth_button" type="submit" name="form_auth_submit" asp-area="Admin" asp-controller="Role" asp-action="Add">Создать роль</button>
         </form>
         <div asp-validation-summary="All"></div>
     </div>

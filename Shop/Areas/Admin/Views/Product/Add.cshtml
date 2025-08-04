@@ -22,7 +22,8 @@
                 <span asp-validation-for="Cost"></span>
             </div>
 
-            <button class="btn btn-secondary form_auth_button" type="submit" name="form_auth_submit" asp-controller="Admin" asp-action="AddProduct">Добавить товар</button>
+            <button class="btn btn-secondary form_auth_button" type="submit" name="form_auth_submit" asp-area="Admin" asp-controller="Product" asp-action="Add">Добавить товар</button>
         </form>
+        <div asp-validation-summary="All"></div>
     </div>
 </div>

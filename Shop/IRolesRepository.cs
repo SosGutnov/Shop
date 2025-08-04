@@ -1,4 +1,4 @@
-﻿using Shop.Models;
+﻿using Shop.Areas.Admin.Models;
 
 namespace Shop
 {
@@ -7,6 +7,6 @@ namespace Shop
         void Add(Role role);
         List<Role> GetAll();
         Role TryGetById(string name);
-        public void RemoveRole(string name);
+        public void Remove(string name);
     }
 }

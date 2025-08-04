@@ -3,7 +3,7 @@
     @await Html.PartialAsync("AdminLeftPanel")
     <div class="col-9">
         <h1>Список ролей</h1>
-        <a asp-controller="Admin" asp-action="AddRole">Добавить новую роль</a>
+        <a asp-area="Admin" asp-controller="Role" asp-action="Add">Добавить новую роль</a>
         <table class="table">
             <tr>
                 <td>Название</td>
@@ -13,10 +13,13 @@
             {
                 <tr>
                     <td>@role.Name</td>
-                    <td><a href="/admin/removeRole?roleName=@role.Name">удалить</a></td>
+                    <td><a 
+                        asp-area="Admin"
+                        asp-controller="Role"
+                        asp-action="Remove"
+                        asp-route-name="@role.Name">удалить</a></td>
                 </tr>
             }
-
         </table>
     </div>
 </div>
