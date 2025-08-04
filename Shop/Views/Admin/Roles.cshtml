@@ -1,4 +1,22 @@
-﻿<div class="row">
+﻿@model List<Role>
+<div class="row">
     @await Html.PartialAsync("AdminLeftPanel")
-    <div class="col-6">Список ролей</div>
+    <div class="col-9">
+        <h1>Список ролей</h1>
+        <a asp-controller="Admin" asp-action="AddRole">Добавить новую роль</a>
+        <table class="table">
+            <tr>
+                <td>Название</td>
+                <td></td>
+            </tr>
+            @foreach (var role in Model)
+            {
+                <tr>
+                    <td>@role.Name</td>
+                    <td><a href="/admin/removeRole?roleName=@role.Name">удалить</a></td>
+                </tr>
+            }
+
+        </table>
+    </div>
 </div>

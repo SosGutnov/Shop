@@ -1,0 +1,17 @@
+﻿@model Role
+<div class="form_auth_block">
+    <div class="form_auth_block_content">
+        <p class="form_auth_block_head_text">Создание роли</p>
+        <form class="form_auth_style" action="#" method="post">
+
+            <div>
+                <label asp-for="Name">Название</label>
+                <input class="input_auth" type="text" asp-for="Name" placeholder="Введите название роли" />
+                <span asp-validation-for="Name"></span>
+            </div>
+
+            <button class="btn btn-secondary form_auth_button" type="submit" name="form_auth_submit" asp-controller="Admin" asp-action="AddRole">Создать роль</button>
+        </form>
+        <div asp-validation-summary="All"></div>
+    </div>
+</div>
