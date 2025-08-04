@@ -11,7 +11,7 @@ namespace Shop.Models
         [StringLength(11, MinimumLength = 11, ErrorMessage ="Неправильный номер телефона")]
         public string Phone { get; set; }
 
-        [EmailAddress(ErrorMessage ="Введите валидный email")]
+        [Required(ErrorMessage = "Не указан адрес")]
         public string Addres { get; set; }
     }
 }

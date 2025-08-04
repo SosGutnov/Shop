@@ -19,6 +19,18 @@ namespace Shop.Controllers
             var orders = ordersRepository.GetAll();
             return View(orders);
         }
+
+        public IActionResult OrderDetails(int orderId)
+        {
+            var order = ordersRepository.TryGetById(orderId);
+            return View(order);
+        }
+        public IActionResult UpdateOrderStatus(int orderId, OrderStatus status)
+        {
+            ordersRepository.UpdateStatus(orderId, status);
+            return RedirectToAction("Orders");
+        }
+
         public IActionResult Products()
         {
             var products = productsRepository.GetAll();

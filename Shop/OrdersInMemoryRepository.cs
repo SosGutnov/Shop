@@ -15,5 +15,20 @@ namespace Shop
         {
             return orders;
         }
+
+        public Order TryGetById(int id)
+        {
+            return orders.FirstOrDefault(x => x.Id == id);
+        }
+
+        public void UpdateStatus(int orderId, OrderStatus newStatus)
+        {
+            var order = TryGetById(orderId);
+            if(order != null)
+            {
+                order.Status = newStatus;
+            }
+            
+        }
     }
 }

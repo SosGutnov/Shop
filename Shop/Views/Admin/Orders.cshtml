@@ -5,26 +5,24 @@
         <h1>Список заказов</h1>
         <table class="table">
             <tr>
-                <td>Заказ №</td>
-                <td>На имя</td>
-                <td>Телефон</td>
-                <td>Адрес</td>
-                <td>Товары</td>
+                <td>№</td>
+                <td>Сумма</td>
+                <td>Статус</td>
+                <td>Пользователь</td>
+                <td>Дата</td>
+                <td>Время</td>
+                <td></td>
             </tr>
             @foreach (var order in Model)
             {
                 <tr>
                     <td>@order.Id</td>
+                    <td>@order.Cost</td>
+                    <td>@EnumHelper.GetDisplayName(@order.Status)</td>
                     <td>@order.User.Name</td>
-                    <td>@order.User.Phone</td>
-                    <td>@order.User.Addres</td>
-                    <td>
-                        @foreach(var product in order.Items){
-                            <a>@product.Product.Name</a>
-                            <br />
-                        }
-                        
-                    </td>
+                    <td>@order.CreatedDateTime.ToString("d")</td>
+                    <td>@order.CreatedDateTime.ToString("t")</td>
+                    <td><a href="/admin/orderDetails?orderId=@order.Id">подробнее</a></td>
                 </tr>
             }
 

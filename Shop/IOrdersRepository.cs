@@ -6,5 +6,7 @@ namespace Shop
     {
         void Add(Order order);
         List<Order> GetAll();
+        Order TryGetById(int id);
+        void UpdateStatus(int orderId, OrderStatus newsStatus);
     }
 }
