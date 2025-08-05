@@ -1,0 +1,31 @@
+﻿@model UserAccount
+<div class="form_auth_block">
+    <div class="form_auth_block_content">
+        <p class="form_auth_block_head_text">Редактирование данных</p>
+        <form class="form_auth_style" action="#" method="post">
+
+            <div>
+                <label asp-for="Name">Имя</label>
+                <input class="input_auth" type="text" asp-for="Name" value="@Model.Name" />
+                <span asp-validation-for="Name"></span>
+            </div>
+
+            <div>
+                <label asp-for="Email">Почта</label>
+                <input class="input_auth" type="text" asp-for="Email" value="@Model.Email" />
+                <span asp-validation-for="Email"></span>
+            </div>
+
+            <div>
+                <label asp-for="Phone">Телефон</label>
+                <input class="input_auth" type="number" asp-for="Phone" value="@Model.Phone" />
+                <span asp-validation-for="Phone"></span>
+            </div>
+            <br />
+            <div asp-validation-summary="ModelOnly"></div>
+            <br />
+            <button class="btn btn-secondary form_auth_button" type="submit" name="form_auth_submit" asp-area="Admin" asp-controller="User" asp-action="Edit">Изменить данные</button>
+        </form>
+    </div>
+
+</div>

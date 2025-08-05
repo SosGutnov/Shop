@@ -49,9 +49,11 @@ namespace Shop.Controllers
                 var user = userManager.TryGetByName(register.UserName);
                 if (user == null)
                 {
-                    userManager.Add(new UserAccount
-                    {
+                    userManager.Add(new UserAccount {
+
                         Name = register.UserName,
+                        Email= register.UserEmail,
+                        Phone = register.UserPhone,
                         Password = register.Password
                     });
                     return RedirectToAction(nameof(HomeController.Index), "Home");

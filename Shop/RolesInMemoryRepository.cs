@@ -4,7 +4,11 @@ namespace Shop
 {
     public class RolesInMemoryRepository : IRolesRepository
     {
-        private List<Role> roles = new List<Role>();
+        private List<Role> roles = new List<Role>()
+        {
+            new Role() {Name = "admin"},
+            new Role() {Name = "user"}
+        };
 
         public void Add(Role role)
         {

@@ -1,0 +1,37 @@
+﻿@model UserAccount
+
+<div class="row">
+    <div class="col-6">
+        <table class="table">
+            <tr>
+                <td>Имя</td>
+                <td>@Model.Name</td>
+            </tr>
+            <tr>
+                <td>Почта</td>
+                <td>@Model.Email</td>
+            </tr>
+            <tr>
+                <td>Телефон</td>
+                <td>@Model.Phone</td>
+            </tr>
+            <tr>
+                <td>Права</td>
+                <td>@Model.Role.Name</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<br />
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+        Действия
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <li><a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="ChangePassword" asp-route-id="@Model.Id">Сменить пароль</a></li>
+        <li><a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Edit" asp-route-id="@Model.Id">Редактировать</a></li>
+        <li><a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="EditRights" asp-route-id="@Model.Id">Права доступа</a></li>
+        <li><a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Delete" asp-route-id="@Model.Id">Удалить</a></li>
+    </ul>
+</div>
+
