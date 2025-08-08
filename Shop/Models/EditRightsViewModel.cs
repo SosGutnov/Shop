@@ -6,9 +6,9 @@ namespace Shop.Models
 {
     public class EditRightsViewModel
     {
-        public string SelectedRoleName { get; set; }
-
         public int UserId { get; set; }
+
+        public string SelectedRoleName { get; set; }
 
         public List<SelectListItem> RolesSelectList { get; set; }
     }

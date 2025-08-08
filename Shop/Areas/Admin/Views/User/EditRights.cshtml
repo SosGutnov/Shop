@@ -6,6 +6,6 @@
                     asp-items="Model.RolesSelectList"
                     class="form-control">
             </select>
-            <button class="btn btn-secondary form_auth_button" type="submit" name="form_auth_submit" asp-area="Admin" asp-controller="User" asp-action="EditRights">Сменить</button>
+            <button class="btn btn-secondary form_auth_button" type="submit" name="form_auth_submit" asp-area="Admin" asp-controller="User" asp-action="EditRights" asp-route-id="@Model.UserId">Сменить</button>
         </form>
 </div>

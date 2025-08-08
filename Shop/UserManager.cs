@@ -9,7 +9,8 @@ namespace Shop
     {
         private readonly List<UserAccount> users = new List<UserAccount>()
         {
-            new UserAccount() {Name = "admin", Phone="", Email = "", Password="admin", Role = new Role(){ Name = "admin"} }
+            new UserAccount() {Name = "admin", Phone="", Email = "", Password="admin", Role = new Role(){ Name = "admin"} },
+            new UserAccount() {Name = "sos", Phone="", Email = "", Password="1234", Role = new Role(){ Name = "user"} }
         };
 
         public List<UserAccount> GetAll()

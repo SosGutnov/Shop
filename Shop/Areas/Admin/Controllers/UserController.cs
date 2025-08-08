@@ -87,9 +87,11 @@ namespace Shop.Areas.Admin.Controllers
         public IActionResult EditRights(int id)
         {
             var roles = rolesRepository.GetAll();
-            var model = new EditRightsViewModel();
-            model.RolesSelectList = new List<SelectListItem>();
-            model.UserId = id;
+            var model = new EditRightsViewModel
+            {
+                RolesSelectList = new List<SelectListItem>(),
+                UserId = id
+            };
             foreach (var role in roles)
             {
                 model.RolesSelectList.Add(new SelectListItem { Text = role.Name, Value = role.Name });
@@ -99,9 +101,9 @@ namespace Shop.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditRights(EditRightsViewModel model)
+        public IActionResult EditRights(int id, EditRightsViewModel model)
         {
-            userManager.EditRights(model.UserId, new Role { Name = model.SelectedRoleName });
+            userManager.EditRights(id, new Role { Name = model.SelectedRoleName });
             return RedirectToAction(nameof(Index));
         }
     }
