@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
-using Shop.Controllers;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Shop.Areas.Admin.Models;
 using Shop.Models;
 
 namespace Shop.Areas.Admin.Controllers
@@ -9,10 +9,12 @@ namespace Shop.Areas.Admin.Controllers
     public class UserController : Controller
     {
         private readonly IUserManager userManager;
+        private readonly IRolesRepository rolesRepository;
 
-        public UserController(IUserManager userManager)
+        public UserController(IUserManager userManager, IRolesRepository rolesRepository)
         {
             this.userManager = userManager;
+            this.rolesRepository = rolesRepository;
         }
 
         public IActionResult Index()
@@ -81,6 +83,26 @@ namespace Shop.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View();
+        }
+        public IActionResult EditRights(int id)
+        {
+            var roles = rolesRepository.GetAll();
+            var model = new EditRightsViewModel();
+            model.RolesSelectList = new List<SelectListItem>();
+            model.UserId = id;
+            foreach (var role in roles)
+            {
+                model.RolesSelectList.Add(new SelectListItem { Text = role.Name, Value = role.Name });
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult EditRights(EditRightsViewModel model)
+        {
+            userManager.EditRights(model.UserId, new Role { Name = model.SelectedRoleName });
+            return RedirectToAction(nameof(Index));
         }
     }
 }

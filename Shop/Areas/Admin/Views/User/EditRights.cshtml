@@ -1,0 +1,11 @@
+﻿@model EditRightsViewModel
+<div class="form_auth_block">
+        <p class="form_auth_block_head_text">Смена роли</p>
+        <form class="form_auth_style" action="#" method="post">
+            <select asp-for="SelectedRoleName"
+                    asp-items="Model.RolesSelectList"
+                    class="form-control">
+            </select>
+            <button class="btn btn-secondary form_auth_button" type="submit" name="form_auth_submit" asp-area="Admin" asp-controller="User" asp-action="EditRights">Сменить</button>
+        </form>
+</div>

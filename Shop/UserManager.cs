@@ -1,4 +1,5 @@
-﻿using Shop.Areas.Admin.Models;
+﻿using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using Shop.Areas.Admin.Models;
 using Shop.Models;
 using System.Xml.Linq;
 
@@ -55,6 +56,15 @@ namespace Shop
             if (user != null)
             {
                 user.Password = newPassword;
+            }
+        }
+
+        public void EditRights(int userId, Role role)
+        {
+            var user = TryGetById(userId);
+            if (user != null)
+            {
+                user.Role = role;
             }
         }
     }

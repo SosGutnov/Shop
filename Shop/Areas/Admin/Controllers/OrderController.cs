@@ -25,6 +25,7 @@ namespace Shop.Areas.Admin.Controllers
             var order = ordersRepository.TryGetById(id);
             return View(order);
         }
+        [HttpPost]
         public IActionResult UpdateStatus(int id, OrderStatus status)
         {
             ordersRepository.UpdateStatus(id, status);

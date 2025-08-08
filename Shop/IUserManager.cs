@@ -1,4 +1,5 @@
-﻿using Shop.Models;
+﻿using Shop.Areas.Admin.Models;
+using Shop.Models;
 
 namespace Shop
 {
@@ -7,6 +8,7 @@ namespace Shop
         void Add(UserAccount user);
         void ChangePassword(int userId, string newPassword);
         void Delete(UserAccount user);
+        void EditRights(int userId, Role role);
         List<UserAccount> GetAll();
         UserAccount TryGetById(int id);
         UserAccount TryGetByName(string name);
