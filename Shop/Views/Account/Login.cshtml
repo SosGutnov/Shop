@@ -1,21 +1,21 @@
 ﻿@model Login
 <div class="form_auth_block">
     <div class="form_auth_block_content">
-        <p class="form_auth_block_head_text">Авторизация</p>
+        <p3 class="form_auth_block_head_text">Авторизация</p3>
         <form class="form_auth_style" action="#" method="post">
             <div>
-                <label asp-for="UserName"></label>
+                <label asp-for="UserName">Логин</label>
                 <input class="input_auth" type="text" asp-for="UserName" placeholder="Введите ваше имя" />
                 <span asp-validation-for="UserName"></span>
             </div>
             
             <div>
-                <label asp-for="Password"></label>
+                <label asp-for="Password">Пароль</label>
                 <input class="input_auth" type="password" asp-for="Password" placeholder="Введите пароль" />
                 <span asp-validation-for="Password"></span>
             </div>
             
-            <div asp-validation-summary="All"></div>
+            <div asp-validation-summary="ModelOnly"></div>
             <br />
             <button class="btn btn-secondary form_auth_button" type="submit" name="form_auth_submit" asp-controller="Account" asp-action="Login">Войти</button>
             <a class="btn btn-secondary form_auth_button" asp-controller="Account" asp-action="Register">Регистрация</a>

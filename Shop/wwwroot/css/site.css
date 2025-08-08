@@ -18,10 +18,23 @@ html {
 }
 
 body {
+    background-color: azure;
     margin-bottom: 60px;
     font-family: 'Comic Sans MS'
 }
+.container-footer {
+    display: flex; 
+    flex-direction: column;
+    min-height: 70vh; 
+}
 
+.footer {
+    margin-top: auto;
+}
+
+.card {
+    margin: 0px;
+}
 .yith-wcwl-add-button {
     width: 32px;
     height: 32px;
@@ -67,6 +80,9 @@ body {
 .product-cost {
     margin: 50px 0 0;
 }
+.card{
+    padding: 45px;
+}
 
 .product-to-basket {
 
@@ -87,14 +103,12 @@ body {
     padding: 10px;
     font-size: 20px;
     font-weight: 600;
-    background: #ffffff;
     opacity: 0.7;
 }
 .form_auth_block label{
     display: block;
     text-align: center;
     padding: 10px;
-    background: #ffffff;
     opacity: 0.7;
     font-weight: 600;
     margin-bottom: 10px;

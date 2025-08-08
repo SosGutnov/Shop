@@ -8,11 +8,11 @@ namespace Shop.Models
         [StringLength(25, MinimumLength = 4, ErrorMessage = "Имя должно содержать от 4 до 25 символов")]
         public string UserName { get; set; }
 
-        //[Required(ErrorMessage = "Не указана почта")]
+        [Required(ErrorMessage = "Не указана почта")]
         [EmailAddress]
         public string UserEmail { get; set; }
 
-        //[Required(ErrorMessage = "Не указан телефон")]
+        [Required(ErrorMessage = "Не указан телефон")]
         public string UserPhone { get; set; }
 
         [Required(ErrorMessage = "Не указан пароль")]

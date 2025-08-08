@@ -6,32 +6,32 @@
         <form class="form_auth_style" action="#" method="post">
 
             <div>
-                <label asp-for="UserName"></label>
+                <label asp-for="UserName">Имя</label>
                 <input class="input_auth" type="text" asp-for="UserName" placeholder="Введите ваше имя" />
                 <span asp-validation-for="UserName"></span>
             </div>
             
             <div>
-                <label asp-for="UserEmail"></label>
+                <label asp-for="UserEmail">Почта</label>
                 <input class="input_auth" type="email" asp-for="UserEmail" placeholder="Введите ваш email" />
                 <span asp-validation-for="UserEmail"></span>
             </div>
 
             <div>
-                <label asp-for="UserPhone"></label>
+                <label asp-for="UserPhone">Телефон</label>
                 <input class="input_auth" type="text" asp-for="UserPhone" placeholder="Введите ваш телефон" />
                 <span asp-validation-for="UserPhone"></span>
             </div>
 
             <div>
-                <label asp-for="Password"></label>
+                <label asp-for="Password">Пароль</label>
                 <input class="input_auth" type="password" asp-for="Password" placeholder="Введите пароль" />
                 <span asp-validation-for="Password"></span>
             </div>
 
             <div>
-                <label asp-for="ConfirmPassword"></label>
-                <input class="input_auth" type="password" asp-for="ConfirmPassword" placeholder="Повторите пароль" />
+                <label asp-for="ConfirmPassword">Подтвердите пароль</label>
+                <input class="input_auth" type="password" asp-for="ConfirmPassword" placeholder="Подтвердите пароль" />
                 <span asp-validation-for="ConfirmPassword"></span>
             </div>
             <div asp-validation-summary="ModelOnly"></div>

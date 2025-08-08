@@ -3,12 +3,12 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-
-<body style="background-color: azure">
   
+
 <div class="row">
 @foreach(var product in Model){
         <div class="col-4 card shadow">
+          
                 <div class="yith-wcwl-add-button">
                     <a href="/home/liked/@product.Id?pageName=index" class="alt button" rel="nofollow">
                         <svg id="yith-wcwl-icon-heart-outline" class="yith-wcwl-icon-svg" fill="@product.InFollow" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24">
@@ -16,7 +16,9 @@
                         </svg>
                     </a>
                 </div>
+            <a href="/product/index/@product.Id">
             <img src=@product.ImagePath class="card-img-top" alt="...">
+            </a>
             <div class="card-body">
                 <a href="/product/index/@product.Id">
                         <h5 class="card-title name-product">@product.Name</h5>
@@ -24,7 +26,7 @@
                     
                 <p class="card-text">@product.Cost ₽</p>
             </div>
+            
         </div>
 }
 </div>
-</body>
