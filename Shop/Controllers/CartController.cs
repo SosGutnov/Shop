@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Shop.Db;
+using Shop.Helpers;
+using Shop.Models;
 
 namespace Shop.Controllers
 {
@@ -16,16 +19,16 @@ namespace Shop.Controllers
         public IActionResult Index()
         {
             var cart = cartsRepository.TryGetById(Constants.UserId);
-            return View(cart);
+            return View(Mapping.ToCartViewModel(cart));
         }
 
-        public IActionResult Add(int productId)
+        public IActionResult Add(Guid productId)
         {
-            var product = productsRepository.TryGetByid(productId);
-            cartsRepository.Add(product, Constants.UserId);
+            var productDb = productsRepository.TryGetByid(productId);
+            cartsRepository.Add(productDb, Constants.UserId);
             return RedirectToAction("Index");
         }
-        public IActionResult DecreaseAmount(int productId)
+        public IActionResult DecreaseAmount(Guid productId)
         {
             cartsRepository.DecreaseAmount(productId, Constants.UserId);
             return RedirectToAction("Index");

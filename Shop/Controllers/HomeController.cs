@@ -2,6 +2,8 @@ using System.Diagnostics;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Shop.Db;
+using Shop.Helpers;
 using Shop.Models;
 
 namespace Shop.Controllers
@@ -9,24 +11,34 @@ namespace Shop.Controllers
     public class HomeController : Controller
     {
         private readonly IProductsRepository productsRepository;
-        private readonly IFavoriteProductsRepository favoriteProductsRepository;
 
-        public HomeController(IProductsRepository productsRepository, IFavoriteProductsRepository favoriteProductsRepository)
+        public HomeController(IProductsRepository productsRepository)
         {
             this.productsRepository = productsRepository;
-            this.favoriteProductsRepository = favoriteProductsRepository;
         }
 
         public IActionResult Index()
         {
             var products = productsRepository.GetAll();
-            return View("index", products);
+            return View(Mapping.ToProductsViewModels(products));
         }
 
         public IActionResult Favorites()
         {
-            var products = favoriteProductsRepository.GetAll();
-            return View("favorites", products);
+            var products = productsRepository.GetAll();
+            var productsViewModels = new List<ProductViewModel>();
+            foreach (var product in products)
+            {
+                var productViewModel = new ProductViewModel
+                {
+                    Name = product.Name,
+                    Cost = product.Cost,
+                    Description = product.Description,
+                    ImagePath = product.ImagePath,
+                };
+                productsViewModels.Add(productViewModel);
+            }
+            return View(productsViewModels);
         }
 
         public IActionResult Privacy()
@@ -40,15 +52,15 @@ namespace Shop.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult Liked(int id, string pageName)
-        {
-            var product = productsRepository.TryGetByid(id);
-            favoriteProductsRepository.Moved(product);
-            if (pageName == "index")
-                return Index();
-            else 
-                return Favorites();
+        //public IActionResult Liked(int id, string pageName)
+        //{
+        //    var product = productsRepository.TryGetByid(id);
+        //    favoriteProductsRepository.Moved(product);
+        //    if (pageName == "index")
+        //        return Index();
+        //    else 
+        //        return Favorites();
             
-        }
+        //}
     }
 }

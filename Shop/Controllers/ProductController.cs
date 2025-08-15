@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Shop.Db;
+using Shop.Helpers;
 
 namespace Shop.Controllers
 {
@@ -11,12 +13,12 @@ namespace Shop.Controllers
             this.productsRepository = productsRepository;
         }
 
-        public IActionResult Index(int id)
+        public IActionResult Index(Guid id)
         {
             var product = productsRepository.TryGetByid(id);
             //if (product == null)
                 //return new Exception("Вам хана");
-            return View(product);
+            return View(Mapping.ToProductViewModel(product));
         }
     }
 }

@@ -1,6 +1,10 @@
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
 using Serilog.Extensions.Hosting;
+using Shop.Db;
+using ShopDb;
+using System.Configuration;
 
 namespace Shop
 {
@@ -16,6 +20,7 @@ namespace Shop
 
             try
             {
+                
                 var builder = WebApplication.CreateBuilder(args);
 
                 builder.Services.AddSerilog((services, lc) => lc
@@ -24,11 +29,12 @@ namespace Shop
                       .Enrich.FromLogContext()
                       .WriteTo.Console());
 
+                builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("shop_db")));
+
                 // Add services to the container.
                 builder.Services.AddSingleton<IOrdersRepository, OrdersInMemoryRepository>();
-                builder.Services.AddSingleton<ICartsRepository, CartsInMemoryRepository>();
-                builder.Services.AddSingleton<IProductsRepository, ProductsInMemoryRepository>();
-                builder.Services.AddSingleton<IFavoriteProductsRepository, FavoriteProductsInMemoryRepository>();
+                builder.Services.AddTransient<ICartsRepository, CartsDbRepository>();
+                builder.Services.AddTransient<IProductsRepository, ProductsDbRepository>();
                 builder.Services.AddSingleton<IRolesRepository, RolesInMemoryRepository>();
                 builder.Services.AddSingleton<IUserManager, UserManager>();
                 builder.Services.AddControllersWithViews();

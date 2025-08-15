@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Shop.Db;
+using Shop.Helpers;
 using Shop.Models;
+using System.Data;
 
 namespace Shop.Controllers
 {
@@ -24,11 +27,11 @@ namespace Shop.Controllers
         public ActionResult Buy(UserDeliveryInfo user)
         {
             var existingsCart = cartsRepository.TryGetById(Constants.UserId);
-
+            var existingsCartViewModel = Mapping.ToCartViewModel(existingsCart);
             var order = new Order
             {
                 User = user,
-                Items = existingsCart.Items
+                Items = existingsCartViewModel.Items,
             };
             ordersRepository.Add(order);
 

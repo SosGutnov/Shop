@@ -1,19 +1,16 @@
-﻿namespace Shop.Models
+﻿
+
+
+
+namespace Shop.Models
 {
-    public class Cart
+    public class CartViewModel
     {
         public Guid Id { get; set; }
 
         public string UserId { get; set; }
 
-        public List<CartItem> Items { get; set; }
-
-        public Cart(Guid id, string userId, List<CartItem> items)
-        {
-            Id = id;
-            UserId = userId;
-            Items = items;
-        }
+        public List<CartItemViewModel> Items { get; set; }
 
         public decimal Cost
         {

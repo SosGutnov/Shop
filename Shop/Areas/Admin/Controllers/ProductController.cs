@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Shop.Db;
 using Shop.Models;
+using ShopDb.Models;
 
 namespace Shop.Areas.Admin.Controllers
 {
@@ -17,7 +19,20 @@ namespace Shop.Areas.Admin.Controllers
         public IActionResult Index()
         {
             var products = productsRepository.GetAll();
-            return View(products);
+            var productsViewModels = new List<ProductViewModel>();
+            foreach (var product in products)
+            {
+                var productViewModel = new ProductViewModel
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    Cost = product.Cost,
+                    Description = product.Description,
+                    ImagePath = product.ImagePath,
+                };
+                productsViewModels.Add(productViewModel);
+            }
+            return View(productsViewModels);
         }
         
         public IActionResult Add()
@@ -26,36 +41,57 @@ namespace Shop.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(Product product)
+        public IActionResult Add(ProductViewModel product)
         {
             if (!ModelState.IsValid)
             {
                 return View(product);
             }
-            
-            productsRepository.AddProduct(product);
+            var productDb = new Product
+            {
+                Name = product.Name,
+                Cost = product.Cost,
+                Description = product.Description
+            };
+            productsRepository.Add(productDb);
             return RedirectToAction("Index");
         }
 
-        public IActionResult Delete(int id)
+        public IActionResult Delete(Guid id)
         {
-            productsRepository.DeleteProduct(id);
+            productsRepository.Delete(id);
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Edit(int id)
+        public IActionResult Edit(Guid id)
         {
-            return View(productsRepository.TryGetByid(id));
+            var product = productsRepository.TryGetByid(id);
+            var productViewModel = new ProductViewModel
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Cost = product.Cost,
+                Description = product.Description,
+                ImagePath = product.ImagePath,
+            };
+            return View(productViewModel);
         }
 
         [HttpPost]
-        public IActionResult Edit(Product product)
+        public IActionResult Edit(ProductViewModel product)
         {
             if (!ModelState.IsValid)
             {
                 return View(product);
             }
-            productsRepository.Update(product);
+            var productDb = new Product
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Cost = product.Cost,
+                Description = product.Description
+            };
+            productsRepository.Update(productDb);
             return RedirectToAction(nameof(Index));
         }
     }

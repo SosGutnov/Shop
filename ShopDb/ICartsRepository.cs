@@ -1,12 +1,13 @@
-﻿using Shop.Models;
+﻿
+using ShopDb.Models;
 
-namespace Shop
+namespace Shop.Db
 {
     public interface ICartsRepository
     {
         void Add(Product product, string userId);
         void Clear(string userId);
-        void DecreaseAmount(int productId, string userId);
+        void DecreaseAmount(Guid productId, string userId);
         Cart TryGetById(string userId);
     }
 }

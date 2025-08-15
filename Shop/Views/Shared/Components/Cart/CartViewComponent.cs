@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Shop.Db;
+using Shop.Helpers;
 
 namespace Shop.Views.Shared.Components.Cart
 {
@@ -14,8 +16,8 @@ namespace Shop.Views.Shared.Components.Cart
 
         public IViewComponentResult Invoke()
         {
-            var cart = cartsRepository.TryGetById(Constants.UserId);
-            var productCount = cart?.Amount;
+            var cart = Mapping.ToCartViewModel(cartsRepository.TryGetById(Constants.UserId));
+            var productCount = cart?.Amount ?? 0;
             return View("Cart", productCount);
         }
     }
