@@ -9,7 +9,7 @@ namespace ShopDb
 
         public DbSet<Cart> Carts { get; set; }
 
-        public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<Liked> Liked { get; set; }
 
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {

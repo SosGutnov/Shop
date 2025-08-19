@@ -35,6 +35,7 @@ namespace Shop
                 builder.Services.AddSingleton<IOrdersRepository, OrdersInMemoryRepository>();
                 builder.Services.AddTransient<ICartsRepository, CartsDbRepository>();
                 builder.Services.AddTransient<IProductsRepository, ProductsDbRepository>();
+                builder.Services.AddTransient<ILikedRepository, LikedDbRepository>();
                 builder.Services.AddSingleton<IRolesRepository, RolesInMemoryRepository>();
                 builder.Services.AddSingleton<IUserManager, UserManager>();
                 builder.Services.AddControllersWithViews();

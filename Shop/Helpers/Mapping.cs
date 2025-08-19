@@ -7,6 +7,10 @@ namespace Shop.Helpers
     {
         public static ProductViewModel ToProductViewModel(Product product)
         {
+            if (product == null)
+            {
+                return null;
+            }
             return new ProductViewModel
             {
                 Id = product.Id,
