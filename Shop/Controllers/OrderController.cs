@@ -28,7 +28,7 @@ namespace Shop.Controllers
         public ActionResult Buy(UserDeliveryInfoViewModel user)
         {
             var existingsCart = cartsRepository.TryGetById(Constants.UserId);
-            var existingsCartViewModel = Mapping.ToCartViewModel(existingsCart);
+            var existingsCartViewModel = existingsCart.ToCartViewModel();
 
             var order = new Order
             {

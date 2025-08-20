@@ -18,7 +18,7 @@ namespace Shop.Controllers
             var product = productsRepository.TryGetByid(id);
             //if (product == null)
                 //return new Exception("Вам хана");
-            return View(Mapping.ToProductViewModel(product));
+            return View(product.ToProductViewModel());
         }
     }
 }

@@ -23,12 +23,12 @@ namespace Shop.Controllers
         public IActionResult Index()
         {
             var products = productsRepository.GetAll();
-            return View(Mapping.ToProductsViewModels(products));
+            return View(products.ToProductsViewModels());
         }
 
         public IActionResult Favorites()
         {
-            var products = likedRepository.TryGetAllByUserId(Constants.UserId).Select(x => Mapping.ToProductViewModel(x.Product)).ToList();
+            var products = likedRepository.TryGetAllByUserId(Constants.UserId).Select(x => x.Product.ToProductViewModel()).ToList();
             return View(products);
         }
 

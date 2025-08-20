@@ -10,9 +10,12 @@ namespace ShopDb.Models
 
         public List<CartItem> Items { get; set; }
 
+        public DateTime CreatedDateTime { get; set; }
+
         public Cart()
         {
             Items = new List<CartItem>();
+            CreatedDateTime = DateTime.Now;
         }
     }
 }

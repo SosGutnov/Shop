@@ -20,5 +20,14 @@ namespace ShopDb.Models
         {
             CartItems = new List<CartItem>();
         }
+
+        public Product(string id, string name, decimal cost, string description, string imagePath) : base()
+        {
+            Id = new Guid(id);
+            Name = name;
+            Cost = cost;
+            Description = description;
+            ImagePath = imagePath;
+        }
     }
 }

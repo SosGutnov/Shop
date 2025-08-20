@@ -19,7 +19,7 @@ namespace Shop.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            var orders = ordersRepository.GetAll().Select(x=>Mapping.ToOrderViewModel(x)).ToList();
+            var orders = ordersRepository.GetAll().Select(x=>x.ToOrderViewModel()).ToList();
 
             return View(orders);
         }
@@ -27,7 +27,7 @@ namespace Shop.Areas.Admin.Controllers
         public IActionResult Detail(Guid id)
         {
             var order = ordersRepository.TryGetById(id);
-            return View(Mapping.ToOrderViewModel(order));
+            return View(order.ToOrderViewModel());
         }
         [HttpPost]
         public IActionResult UpdateStatus(Guid id, OrderStatusViewModel status)

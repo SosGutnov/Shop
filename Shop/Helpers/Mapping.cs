@@ -5,7 +5,7 @@ namespace Shop.Helpers
 {
     public static class Mapping
     {
-        public static ProductViewModel ToProductViewModel(Product product)
+        public static ProductViewModel ToProductViewModel(this Product product)
         {
             if (product == null)
             {
@@ -20,7 +20,7 @@ namespace Shop.Helpers
                 ImagePath = product.ImagePath,
             };
         }
-        public static Product ToProduct(ProductViewModel product)
+        public static Product ToProduct(this ProductViewModel product)
         {
             return new Product
             {
@@ -32,12 +32,12 @@ namespace Shop.Helpers
             };
         }
 
-        public static List<ProductViewModel> ToProductsViewModels(List<Product> products)
+        public static List<ProductViewModel> ToProductsViewModels(this List<Product> products)
         {
-            return products.Select(x => ToProductViewModel(x)).ToList();
+            return products.Select(x=>x.ToProductViewModel()).ToList();
         }
 
-        public static CartViewModel ToCartViewModel(Cart cart)
+        public static CartViewModel ToCartViewModel(this Cart cart)
         {
             if (cart == null)
                 return null;
@@ -45,21 +45,21 @@ namespace Shop.Helpers
             {
                 Id = cart.Id,
                 UserId = cart.UserId,
-                Items = cart.Items.Select(x => ToCartItemViewModel(x)).ToList()
+                Items = cart.Items.Select(x => x.ToCartItemViewModel()).ToList()
             };
         }
 
-        public static CartItemViewModel ToCartItemViewModel(CartItem cartItem)
+        public static CartItemViewModel ToCartItemViewModel(this CartItem cartItem)
         {
             return new CartItemViewModel
             {
                 
                 Id = cartItem.Id,
                 Amount = cartItem.Amount,
-                Product = ToProductViewModel(cartItem.Product)
+                Product = cartItem.Product.ToProductViewModel()
             };
         }
-        public static Order ToOrder(OrderViewModel order)
+        public static Order ToOrder(this OrderViewModel order)
         {
             if (order == null)
             {
@@ -77,23 +77,23 @@ namespace Shop.Helpers
                 },
                 CreatedDateTime = order.CreatedDateTime,
                 Status = (OrderStatus)order.Status,
-                Items = order.Items.Select(x => ToCartItem(x)).ToList()
+                Items = order.Items.Select(x => x.ToCartItem()).ToList()
 
             };
         }
 
-        public static CartItem ToCartItem(CartItemViewModel cartItem)
+        public static CartItem ToCartItem(this CartItemViewModel cartItem)
         {
             return new CartItem
             {
 
                 Id = cartItem.Id,
                 Amount = cartItem.Amount,
-                Product = ToProduct(cartItem.Product)
+                Product = cartItem.Product.ToProduct()
             };
         }
 
-        public static OrderViewModel ToOrderViewModel(Order order)
+        public static OrderViewModel ToOrderViewModel(this Order order)
         {
             if (order == null)
             {
@@ -111,7 +111,7 @@ namespace Shop.Helpers
                 },
                 CreatedDateTime = order.CreatedDateTime,
                 Status = (OrderStatusViewModel)(int)order.Status,
-                Items = order.Items.Select(x=>ToCartItemViewModel(x)).ToList(),
+                Items = order.Items.Select(x=>x.ToCartItemViewModel()).ToList(),
             };
         }
     }
