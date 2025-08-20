@@ -1,7 +1,7 @@
 ﻿using ShopDb;
 using ShopDb.Models;
 
-namespace Shop.Db
+namespace ShopDb
 {
     public class ProductsDbRepository : IProductsRepository
     {

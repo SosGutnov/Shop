@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Serilog;
 using Serilog.Events;
 using Serilog.Extensions.Hosting;
-using Shop.Db;
+using ShopDb;
 using ShopDb;
 using System.Configuration;
 
@@ -32,7 +32,7 @@ namespace Shop
                 builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("shop_db")));
 
                 // Add services to the container.
-                builder.Services.AddSingleton<IOrdersRepository, OrdersInMemoryRepository>();
+                builder.Services.AddTransient<IOrdersRepository, OrdersDbRepository>();
                 builder.Services.AddTransient<ICartsRepository, CartsDbRepository>();
                 builder.Services.AddTransient<IProductsRepository, ProductsDbRepository>();
                 builder.Services.AddTransient<ILikedRepository, LikedDbRepository>();

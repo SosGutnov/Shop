@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using ShopDb;
 using ShopDb.Models;
 
-namespace Shop.Db
+namespace ShopDb
 {
     public class CartsDbRepository : ICartsRepository
     {
@@ -23,7 +23,7 @@ namespace Shop.Db
                 {
                     UserId = userId
                 };
-                newCart.Items = new List<CartItem> { new CartItem { Product = product, Amount = 1, Cart = newCart } };
+                newCart.Items = new List<CartItem> { new CartItem { Product = product, Amount = 1, /*Cart = newCart*/ } };
                 databaseContext.Carts.Add(newCart);
             }
             else
@@ -32,7 +32,7 @@ namespace Shop.Db
                 if (existingCartItem == null)
                 {
                     
-                    existingCart.Items.Add(new CartItem { Product = product, Amount = 1, Cart = existingCart });
+                    existingCart.Items.Add(new CartItem { Product = product, Amount = 1, /*Cart = existingCart*/ });
                 }
                 else
                 {

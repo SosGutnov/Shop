@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Shop.Helpers;
 using Shop.Models;
+using ShopDb;
+using ShopDb.Models;
 
 namespace Shop.Areas.Admin.Controllers
 {
@@ -16,19 +19,20 @@ namespace Shop.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            var orders = ordersRepository.GetAll();
+            var orders = ordersRepository.GetAll().Select(x=>Mapping.ToOrderViewModel(x)).ToList();
+
             return View(orders);
         }
 
-        public IActionResult Detail(int id)
+        public IActionResult Detail(Guid id)
         {
             var order = ordersRepository.TryGetById(id);
-            return View(order);
+            return View(Mapping.ToOrderViewModel(order));
         }
         [HttpPost]
-        public IActionResult UpdateStatus(int id, OrderStatus status)
+        public IActionResult UpdateStatus(Guid id, OrderStatusViewModel status)
         {
-            ordersRepository.UpdateStatus(id, status);
+            ordersRepository.UpdateStatus(id, (OrderStatus)status);
             return RedirectToAction(nameof(Index));
         }
 

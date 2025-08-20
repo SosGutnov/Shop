@@ -20,9 +20,9 @@ namespace Shop.Helpers
                 ImagePath = product.ImagePath,
             };
         }
-        public static ProductViewModel ToProduct(ProductViewModel product)
+        public static Product ToProduct(ProductViewModel product)
         {
-            return new ProductViewModel
+            return new Product
             {
                 Id = product.Id,
                 Name = product.Name,
@@ -57,6 +57,61 @@ namespace Shop.Helpers
                 Id = cartItem.Id,
                 Amount = cartItem.Amount,
                 Product = ToProductViewModel(cartItem.Product)
+            };
+        }
+        public static Order ToOrder(OrderViewModel order)
+        {
+            if (order == null)
+            {
+                return null;
+            }
+            return new Order
+            {
+                Id = order.Id,
+                User = new UserDeliveryInfo
+                {
+                    Id = order.User.Id,
+                    Addres = order.User.Addres,
+                    Name = order.User.Name,
+                    Phone = order.User.Phone,
+                },
+                CreatedDateTime = order.CreatedDateTime,
+                Status = (OrderStatus)order.Status,
+                Items = order.Items.Select(x => ToCartItem(x)).ToList()
+
+            };
+        }
+
+        public static CartItem ToCartItem(CartItemViewModel cartItem)
+        {
+            return new CartItem
+            {
+
+                Id = cartItem.Id,
+                Amount = cartItem.Amount,
+                Product = ToProduct(cartItem.Product)
+            };
+        }
+
+        public static OrderViewModel ToOrderViewModel(Order order)
+        {
+            if (order == null)
+            {
+                return null;
+            }
+            return new OrderViewModel
+            {
+                Id = order.Id,
+                User = new UserDeliveryInfoViewModel
+                {
+                    Id = order.User.Id,
+                    Addres = order.User.Addres,
+                    Name = order.User.Name,
+                    Phone = order.User.Phone,
+                },
+                CreatedDateTime = order.CreatedDateTime,
+                Status = (OrderStatusViewModel)(int)order.Status,
+                Items = order.Items.Select(x=>ToCartItemViewModel(x)).ToList(),
             };
         }
     }

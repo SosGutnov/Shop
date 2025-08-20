@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Shop.Db;
 using Shop.Helpers;
 using Shop.Models;
+using ShopDb;
+using ShopDb.Models;
 using System.Data;
 
 namespace Shop.Controllers
@@ -24,14 +25,20 @@ namespace Shop.Controllers
         }
 
         [HttpPost]
-        public ActionResult Buy(UserDeliveryInfo user)
+        public ActionResult Buy(UserDeliveryInfoViewModel user)
         {
             var existingsCart = cartsRepository.TryGetById(Constants.UserId);
             var existingsCartViewModel = Mapping.ToCartViewModel(existingsCart);
+
             var order = new Order
             {
-                User = user,
-                Items = existingsCartViewModel.Items,
+                User = new UserDeliveryInfo
+                {
+                    Name = user.Name,
+                    Addres = user.Addres,
+                    Phone = user.Phone,
+                },
+                Items = existingsCart.Items
             };
             ordersRepository.Add(order);
 

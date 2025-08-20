@@ -2,7 +2,7 @@ using System.Diagnostics;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Shop.Db;
+using ShopDb;
 using Shop.Helpers;
 using Shop.Models;
 using ShopDb.Models;

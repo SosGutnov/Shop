@@ -11,6 +11,8 @@ namespace ShopDb
 
         public DbSet<Liked> Liked { get; set; }
 
+        public DbSet<Order> Orders { get; set; }
+
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
             Database.EnsureCreated();

@@ -1,7 +1,7 @@
 ﻿
 using ShopDb.Models;
 
-namespace Shop.Db
+namespace ShopDb
 {
     public interface ILikedRepository
     {

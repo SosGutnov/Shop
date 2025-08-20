@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Shop.Db;
+using ShopDb;
 using Shop.Helpers;
 using Shop.Models;
 using ShopDb;

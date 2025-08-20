@@ -1,21 +1,17 @@
 ﻿namespace Shop.Models
 {
-    public class Order
+    public class OrderViewModel
     {
-        private static int _id;
-
-        public int Id { get; set; }
-        public UserDeliveryInfo User { get; set; }
+        public Guid Id { get; set; }
+        public UserDeliveryInfoViewModel User { get; set; }
         public List<CartItemViewModel> Items { get; set; }
-        public OrderStatus Status { get; set; }
+        public OrderStatusViewModel Status { get; set; }
         public DateTime CreatedDateTime { get; set; }
 
-        public Order()
+        public OrderViewModel()
         {
-            Id = _id;
-            Status = OrderStatus.Created;
+            Status = OrderStatusViewModel.Created;
             CreatedDateTime = DateTime.Now;
-            _id += 1;
         }
 
         public decimal Cost
