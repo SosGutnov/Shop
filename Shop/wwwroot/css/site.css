@@ -89,10 +89,12 @@ body {
 }
 .form_auth_block{
     width: 500px;
-    height: 500px;
-    margin: 0 auto;
+    height: auto;
+    margin: auto;
     background-size: cover;
     border-radius: 4px;
+    justify-content: center;
+    display: block;
 }
 .form_auth_block_content{
   padding-top: 15%;

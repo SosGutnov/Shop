@@ -1,10 +1,13 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Serilog;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Serilog;
 using Serilog.Events;
 using Serilog.Extensions.Hosting;
 using ShopDb;
-using ShopDb;
+using ShopDb.Models;
 using System.Configuration;
 
 namespace Shop
@@ -30,8 +33,25 @@ namespace Shop
                       .Enrich.FromLogContext()
                       .WriteTo.Console());
 
-                builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("shop_db")));
+                string connection = builder.Configuration.GetConnectionString("shop_db");
+                builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connection));
 
+                builder.Services.AddDbContext<IdentityContext>(options => options.UseSqlServer(connection));
+
+                builder.Services.AddIdentity<User, IdentityRole>()
+                    .AddEntityFrameworkStores<IdentityContext>();
+
+                // настройки куки
+                builder.Services.ConfigureApplicationCookie(options =>
+                {
+                    options.ExpireTimeSpan= TimeSpan.FromDays(1); //сколько хранится
+                    options.LoginPath = "/Account/Login"; // если не авторизован то сюда
+                    options.LogoutPath = "/Account/Logout"; 
+                    options.Cookie = new CookieBuilder()
+                    {
+                        IsEssential = true
+                    };
+                });
 
                 // Add services to the container.
                 builder.Services.AddTransient<IOrdersRepository, OrdersDbRepository>();
@@ -56,8 +76,12 @@ namespace Shop
                 {
                     var services = scope.ServiceProvider;
 
-                    var context = services.GetRequiredService<DatabaseContext>();
-                    context.Database.Migrate();
+                    var dataBaseContext = services.GetRequiredService<DatabaseContext>();
+                    var userManager = services.GetRequiredService<UserManager<User>>();
+                    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+                    IdentityInitializer.Initialize(userManager, roleManager);
+                    dataBaseContext.Database.Migrate();
                     // DbInitializer.Initialize(context);
                 }
                 app.UseDeveloperExceptionPage();
@@ -69,6 +93,7 @@ namespace Shop
 
                 app.UseRouting();
 
+                app.UseAuthentication();
                 app.UseAuthorization();
 
                 app.MapControllerRoute(

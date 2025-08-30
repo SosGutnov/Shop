@@ -1,15 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Shop.Models;
+using ShopDb.Models;
 
 namespace Shop.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IUserManager userManager;
+        private readonly UserManager<User> userManager;
+        private readonly SignInManager<User> signInManager;
 
-        public AccountController(IUserManager userManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             this.userManager = userManager;
+            this.signInManager = signInManager;
         }
 
         public ActionResult Login()
@@ -20,20 +24,20 @@ namespace Shop.Controllers
         [HttpPost]
         public ActionResult Login(Login login)
         {
-            if (!ModelState.IsValid)
-                return View();
-            var user = userManager.TryGetByName(login.UserName);
-            if (user == null)
+            if (ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Пользователя с таким логином не существует");
-                return View();
+                var result = signInManager.PasswordSignInAsync(login.UserName, login.Password, true, false).Result;
+                if (result.Succeeded)
+                {
+                    return RedirectToAction(nameof(HomeController.Index), "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Неправильный пароль");
+                }
             }
-            if (user.Password != login.Password)
-            {
-                ModelState.AddModelError("", "Неправильный пароль");
-                return View();
-            }
-            return RedirectToAction(nameof(Index), "Home");
+
+            return View();
         }
 
         public ActionResult Register()
@@ -46,21 +50,24 @@ namespace Shop.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = userManager.TryGetByName(register.UserName);
-                if (user == null)
+                var user = new User()
                 {
-                    userManager.Add(new UserAccount {
-
-                        Name = register.UserName,
-                        Email= register.UserEmail,
-                        Phone = register.UserPhone,
-                        Password = register.Password
-                    });
+                    UserName = register.UserName,
+                    PhoneNumber = register.UserPhone,
+                    Email = register.UserEmail
+                };
+                var result = userManager.CreateAsync(user, register.Password).Result;
+                if (result.Succeeded)
+                {
+                    signInManager.SignInAsync(user, false).Wait();
                     return RedirectToAction(nameof(HomeController.Index), "Home");
                 }
-                if (user != null)
+                else
                 {
-                    ModelState.AddModelError("", "Логин занят");
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
                     return View();
                 }
             }
