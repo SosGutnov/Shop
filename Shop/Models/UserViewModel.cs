@@ -3,11 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Shop.Models
 {
-    public class UserAccount
+    public class UserViewModel
     {
-        private static int _id;
-
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Required(ErrorMessage = "Не указано имя")]
         [StringLength(25, MinimumLength = 4, ErrorMessage = "Имя должно содержать от 4 до 25 символов")]
@@ -20,13 +18,9 @@ namespace Shop.Models
 
         public string Phone { get; set; }
 
-        public Role Role { get; set; }
-
-        public UserAccount()
+        public UserViewModel()
         {
-            Id = _id;
-            _id += 1;
-            Role = new Role() { Name = "user" };
+            Id = Guid.NewGuid().ToString();
         }
     }
 }

@@ -1,15 +1,15 @@
-﻿@model List<UserAccount>
+﻿@model List<UserViewModel>
 <div class="row">
     @await Html.PartialAsync("AdminLeftPanel")
     <div class="col-9">
         <h1>Список пользователей</h1>
+        <a asp-area="Admin" asp-controller="User" asp-action="Add">Добавить пользователя</a>
         <table class="table">
             <tr>
                 <td>№</td>
                 <td>Пользователь</td>
                 <td>Почта(логин)</td>
                 <td>Телефон</td>
-                <td>Права</td>
                 <td></td>
             </tr>
             @foreach (var order in Model)
@@ -19,7 +19,6 @@
                     <td>@order.Name</td>
                     <td>@order.Email</td>
                     <td>@order.Phone</td>
-                    <td>@order.Role.Name</td>
                     <td>
                         <a asp-area="admin"
                            asp-controller="user"
@@ -30,6 +29,6 @@
             }
 
         </table>
-        <a asp-area="Admin" asp-controller="User" asp-action="Add">Добавить пользователя</a>
+        
     </div>
 </div>

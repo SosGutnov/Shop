@@ -59,7 +59,6 @@ namespace Shop
                 builder.Services.AddTransient<IProductsRepository, ProductsDbRepository>();
                 builder.Services.AddTransient<ILikedRepository, LikedDbRepository>();
                 builder.Services.AddSingleton<IRolesRepository, RolesInMemoryRepository>();
-                builder.Services.AddSingleton<IUserManager, UserManager>();
                 builder.Services.AddControllersWithViews();
 
                 var app = builder.Build();

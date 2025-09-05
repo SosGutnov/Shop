@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Shop.Areas.Admin.Models;
 
 namespace Shop.Areas.Admin.Controllers
@@ -6,16 +7,16 @@ namespace Shop.Areas.Admin.Controllers
     [Area("Admin")]
     public class RoleController : Controller
     {
-        private IRolesRepository rolesRepository;
+        private readonly RoleManager<IdentityRole> roleManager;
 
-        public RoleController(IRolesRepository rolesRepository)
+        public RoleController(RoleManager<IdentityRole> roleManager)
         {
-            this.rolesRepository = rolesRepository;
+            this.roleManager = roleManager;
         }
 
         public IActionResult Index()
         {
-            var roles = rolesRepository.GetAll();
+            var roles = roleManager.Roles.ToList();
             return View(roles);
         }
         public IActionResult Add()
@@ -24,15 +25,15 @@ namespace Shop.Areas.Admin.Controllers
         }
         
         [HttpPost]
-        public IActionResult Add(Role role)
+        public IActionResult Add(IdentityRole role)
         {
-            if (rolesRepository.TryGetById(role.Name) != null)
+            if (roleManager.Roles.FirstOrDefault(x => x.Id == role.Id) != null)
             {
                 ModelState.AddModelError("", "Такая роль уже существует");
             }
             if (ModelState.IsValid)
             {
-                rolesRepository.Add(role);
+                roleManager.CreateAsync(role).Wait();
                 return RedirectToAction(nameof(Index));
             }
             
@@ -41,7 +42,7 @@ namespace Shop.Areas.Admin.Controllers
         
         public IActionResult Remove(string name)
         {
-            rolesRepository.Remove(name);
+            roleManager.DeleteAsync(roleManager.Roles.FirstOrDefault(x=>x.Name == name)).Wait();
             return RedirectToAction(nameof(Index));
         }
     }

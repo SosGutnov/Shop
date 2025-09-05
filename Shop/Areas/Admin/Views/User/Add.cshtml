@@ -1,4 +1,4 @@
-﻿@model UserAccount
+﻿@model UserViewModel
 <div class="form_auth_block">
     <div class="form_auth_block_content">
         <p class="form_auth_block_head_text">Добавление пользователя</p>
@@ -30,6 +30,6 @@
 
             <button class="btn btn-secondary form_auth_button" type="submit" name="form_auth_submit" asp-area="Admin" asp-controller="User" asp-action="Add">Добавить пользователся</button>
         </form>
-        <div asp-validation-summary="ModelOnly"></div>
+        <div asp-validation-summary="All"></div>
     </div>
 </div>

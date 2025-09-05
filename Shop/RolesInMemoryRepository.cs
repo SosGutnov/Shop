@@ -1,33 +1,30 @@
-﻿using Shop.Areas.Admin.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using Shop.Areas.Admin.Models;
 
 namespace Shop
 {
     public class RolesInMemoryRepository : IRolesRepository
     {
-        private List<Role> roles = new List<Role>()
-        {
-            new Role() {Name = "admin"},
-            new Role() {Name = "user"}
-        };
+        private readonly RoleManager<IdentityRole> roleManager;
 
-        public void Add(Role role)
+        public void Add(IdentityRole role)
         {
-            roles.Add(role);
+            roleManager.CreateAsync(role);
         }
 
-        public List<Role> GetAll()
+        public List<IdentityRole> GetAll()
         {
-            return roles;
+            return roleManager.Roles.ToList();
         }
 
-        public Role TryGetById(string name)
+        public IdentityRole TryGetById(string name)
         {
-            return roles.FirstOrDefault(x => x.Name == name);
+            return roleManager.Roles.FirstOrDefault(x => x.Name == name);
         }
 
         public void Remove(string name)
         {
-            roles.RemoveAll(x => x.Name == name);
+            roleManager.DeleteAsync(TryGetById(name));
         }
     }
 }

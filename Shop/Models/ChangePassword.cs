@@ -4,7 +4,7 @@ namespace Shop.Models
 {
     public class ChangePassword
     {
-        public int UserId { get; set; }
+        public string UserId { get; set; }
 
         [Required(ErrorMessage = "Не указан пароль")]
         public string Password { get; set; }

@@ -114,5 +114,37 @@ namespace Shop.Helpers
                 Items = order.Items.Select(x=>x.ToCartItemViewModel()).ToList(),
             };
         }
+
+        public static UserViewModel ToUserViewModel(this User user)
+        {
+            if(user != null)
+            {
+                return new UserViewModel
+                {
+                    Id = user.Id,
+                    Name = user.UserName,
+                    Email = user.Email,
+                    Password = user.PasswordHash,
+                    Phone = user.PhoneNumber,
+                };
+            }
+            return null;
+        }
+
+        public static User ToUserViewModel(this UserViewModel user)
+        {
+            if (user != null)
+            {
+                return new User
+                {
+                    Id = user.Id,
+                    UserName = user.Name,
+                    Email = user.Email,
+                    PasswordHash = user.Password,
+                    PhoneNumber = user.Phone,
+                };
+            }
+            return null;
+        }
     }
 }
